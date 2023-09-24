@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "downloader-for-yt"
+version = "0.1.0"
+description = ""
+authors = ["David <89795659+Tenvid@users.noreply.github.com>"]
+readme = "README.md"
+packages = [{include = "downloader_for_yt", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pysimplegui = "^4.60.5"
+pytube = "^15.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

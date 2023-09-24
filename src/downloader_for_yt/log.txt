@@ -1,0 +1,44 @@
+16:21:31,845 root INFO title: C:/Users/Usuario/Desktop
+16:21:31,845 root INFO link: https://www.youtube.com/watch?v=rwCMFrzaYKQ
+16:21:31,845 root INFO video folder name: TestFolder
+16:21:31,845 pytube.helpers DEBUG matched regex search: (?:v=|\/)([0-9A-Za-z_-]{11}).*
+16:21:31,845 root INFO Folder path: C:/Users/Usuario/Desktop\TestFolder
+16:21:32,917 pytube.extract DEBUG applying descrambler
+16:21:32,918 pytube.extract DEBUG finding initial function name
+16:21:32,931 pytube.extract DEBUG Pattern failed: ytplayer\.config\s*=\s*
+16:21:32,931 pytube.extract DEBUG Could not parse object.
+16:21:32,944 pytube.extract DEBUG finished regex search, matched: (/s/player/[\w\d]+/[\w\d_/.]+/base\.js)
+16:21:33,314 pytube.cipher DEBUG finding initial function name
+16:21:33,623 pytube.cipher DEBUG finished regex search, matched: (?P<sig>[a-zA-Z0-9$]+)\s*=\s*function\(\s*a\s*\)\s*{\s*a\s*=\s*a\.split\(\s*""\s*\)
+16:21:33,624 pytube.cipher DEBUG getting transform plan
+16:21:33,624 pytube.helpers DEBUG matched regex search: AKa=function\(\w\){[a-z=\.\(\"\)]*;(.*);(?:.+)}
+16:21:33,624 pytube.cipher DEBUG getting transform object
+16:21:33,625 pytube.cipher DEBUG Finding throttling function name
+16:21:33,626 pytube.cipher DEBUG finished regex search, matched: a\.[a-zA-Z]\s*&&\s*\([a-z]\s*=\s*a\.get\("n"\)\)\s*&&\s*\([a-z]\s*=\s*([a-zA-Z0-9$]+)(\[\d+\])?\([a-z]\)
+16:21:33,630 pytube.cipher DEBUG Finding throttling function name
+16:21:33,630 pytube.cipher DEBUG finished regex search, matched: a\.[a-zA-Z]\s*&&\s*\([a-z]\s*=\s*a\.get\("n"\)\)\s*&&\s*\([a-z]\s*=\s*([a-zA-Z0-9$]+)(\[\d+\])?\([a-z]\)
+16:21:33,635 pytube.extract DEBUG signature found, skip decipher
+16:21:33,635 pytube.extract DEBUG signature found, skip decipher
+16:21:33,635 pytube.extract DEBUG signature found, skip decipher
+16:21:33,635 pytube.extract DEBUG signature found, skip decipher
+16:21:33,635 pytube.extract DEBUG signature found, skip decipher
+16:21:33,635 pytube.extract DEBUG signature found, skip decipher
+16:21:33,635 pytube.extract DEBUG signature found, skip decipher
+16:21:33,635 pytube.extract DEBUG signature found, skip decipher
+16:21:33,635 pytube.extract DEBUG signature found, skip decipher
+16:21:33,635 pytube.extract DEBUG signature found, skip decipher
+16:21:33,635 pytube.extract DEBUG signature found, skip decipher
+16:21:33,635 pytube.extract DEBUG signature found, skip decipher
+16:21:33,635 pytube.extract DEBUG signature found, skip decipher
+16:21:33,635 pytube.extract DEBUG signature found, skip decipher
+16:21:33,635 pytube.extract DEBUG signature found, skip decipher
+16:21:33,635 pytube.extract DEBUG signature found, skip decipher
+16:21:33,635 pytube.extract DEBUG signature found, skip decipher
+16:21:33,635 pytube.extract DEBUG signature found, skip decipher
+16:21:33,635 pytube.extract DEBUG signature found, skip decipher
+16:21:33,635 pytube.extract DEBUG signature found, skip decipher
+16:21:33,841 pytube.streams DEBUG downloading (28261120 total bytes) file to C:/Users/Usuario/Desktop\TestFolder\Raphael y Pablo López - Treinta y seis (Raphael 60).mp4
+16:21:34,596 pytube.streams DEBUG download remaining: 18823936
+16:21:35,127 pytube.streams DEBUG download remaining: 9386752
+16:21:35,683 pytube.streams DEBUG download remaining: 0
+16:21:35,684 pytube.streams DEBUG download finished
