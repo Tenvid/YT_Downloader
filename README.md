@@ -29,3 +29,4 @@ Once the program is open you will see a little window with some buttons and text
 - The first text field is the name that you will give to the folder of the video (by default: DefaultName)
 - The second field is where you have to place the url from YT (if it is empty, an error pop up will appear)
 - The last button launches the "downloader.py" and downloads the video or playlist wherever you have chosen before
+- In the upper right part you will see a box where you can choose between MP4 or MP3
