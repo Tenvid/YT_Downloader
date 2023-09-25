@@ -10,6 +10,9 @@ packages = [{include = "downloader_for_yt", from = "src"}]
 python = "^3.11"
 pysimplegui = "^4.60.5"
 pytube = "^15.0.0"
+twitter-dl = "^0.2.0"
+insta-scrape = "^2.1.2"
+instaloader = "^4.10"
 
 
 [build-system]

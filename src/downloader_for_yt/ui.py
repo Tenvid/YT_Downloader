@@ -1,7 +1,7 @@
-# hello_psg.py
 import os
 import PySimpleGUI as sg
-import downloader
+import youtube_downloader
+import twitter_dl
 
 BACKGROUND_COLOR = "#44aaca"
 INITIAL_FOLDER = "C:/Users/Usuario/Desktop"
@@ -11,7 +11,7 @@ HEADER_MESSAGE = "Paste the YouTube video/ playlist link and click the button"
 
 def main():
     layout = [
-        [sg.Text(text=HEADER_MESSAGE, background_color=BACKGROUND_COLOR, key="header")],
+        [sg.Text(text=HEADER_MESSAGE, background_color=BACKGROUND_COLOR, key="header"), sg.Combo(['MP4', "MP3"], size=10, key="format_choose", default_value="MP3")],
         [sg.T("Root folder", background_color=BACKGROUND_COLOR),
          sg.FolderBrowse(key="browser", tooltip="Folder which will store all the videos",
                          target="folder_text", initial_folder=INITIAL_FOLDER),
@@ -24,6 +24,11 @@ def main():
     # Create the window
     window = sg.Window("YouTube Downloader", layout)
     # Create an event loop
+
+    youtube_download(window)
+
+
+def youtube_download(window):
     while True:
         event, values = window.read()
 
@@ -38,9 +43,13 @@ def main():
                 link = values['url']
                 root_folder = values['browser']
                 video_folder_name = values['name_input']
+                download_format = values["format_choose"]
+
                 try:
+                    command = f"python youtube_downloader.py \"{link}\" \"{root_folder}\" \"{video_folder_name}\" {download_format}"
+                    print(command)
                     # Download videos
-                    os.system(f"python downloader.py {link} {root_folder} {video_folder_name}")
+                    os.system(command)
                     # Show a correct popup
                     sg.popup_ok("Download has finished", background_color="green")
                 except Exception as e:
@@ -58,7 +67,8 @@ def validate_values(dict_values) -> bool:
     if dict_values['name_input'] == '':
         dict_values['name_input'] = "DefaultName"
     else:
-        dict_values['name_input'] = downloader.validate_title(dict_values['name_input'])
+        pass
+        # dict_values['name_input'] = youtube_downloader.validate_title(dict_values['name_input'])
     return True
 
 
