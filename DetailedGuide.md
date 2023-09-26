@@ -35,7 +35,12 @@ In [this repository](https://github.com/Tenvid/YT_Downloader), click on code but
 ### Windows & Linux
 
 - Open the folder where the files have been downloaded in the file explorer and copy the adress.
-- Open a CMD/Terminal and write ``` cd " ADDRESS_THAT_YOU_HAVE_COPIED " ``` (IMPORTANT: we have to write the quotes (""))
+- Open a CMD/Terminal and write
+  
+  ```cmd
+   cd " ADDRESS_THAT_YOU_HAVE_COPIED " 
+  ```
+  (IMPORTANT: we have to write the quotes (""))
 - Unzip the file
 - Go to ``` ...\YT_Downloader-main\src\downloader_for_yt\ ```
 
@@ -49,6 +54,25 @@ In this folder there should be some files:
 
 ### Windows & Linux
 
-Without exiting the folder run ``` pip install -r requirements.txt ```
+Without exiting the folder run
+```cmd
+pip install -r requirements.txt
+```
 
 ## Running the files
+
+Run
+
+```cmd
+python ui.py
+```
+
+And you will have the interface opened
+
+There you will find some important things:
+- A selector between MP3 and MP4
+- A button to select the folder where we will download the video
+- A text input where we will name the folder which will contain the video
+- A text input where we will introduce the url from the video or the playlist
+
+When you press the submit button, the download should start and be completed in a few seconds
