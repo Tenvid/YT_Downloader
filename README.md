@@ -6,7 +6,7 @@ With this repo you can download a YouTube video or playlist in Windows or Linux
 
 You need to install [python](https://www.python.org/downloads/) and [python-pip](https://packaging.python.org/en/latest/tutorials/installing-packages/#ensure-you-can-run-pip-from-the-command-line)
 
-This will be a guide for experienced people, if you don't know nothing, you should revise the Detailed_Guide (WIP)
+This will be a guide for experienced people, if you don't know nothing, you should revise the [Detailed Guide](DetailedGuide.md)
 
 ## Set up
 
@@ -24,7 +24,6 @@ After installing the requirements you only have to run the "ui.py" script.
 
 ```
 python ui.py
-
 ```
 
 
