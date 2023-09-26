@@ -1,7 +1,6 @@
 import os
 import PySimpleGUI as sg
 import youtube_downloader
-import twitter_dl
 
 BACKGROUND_COLOR = "#44aaca"
 INITIAL_FOLDER = "C:/Users/Usuario/Desktop"
