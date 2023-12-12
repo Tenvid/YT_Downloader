@@ -1,90 +1,129 @@
 import logging
-import pytube
+import re
+
+import yt_dlp
 import os
-import argparse
 
 
-def get_arguments():
-    args = argparse.ArgumentParser(
-        prog="YouTube Downloader",
-        description="This app downloads YT videos",
-    )
-
-    args.add_argument('link', type=str)
-    args.add_argument('root_folder', type=str, default="C:/Users/Usuario/Desktop")
-    args.add_argument('video_folder_name', type=str)
-    args.add_argument('format', type=str, choices=["MP3", "MP4"])
-    return args.parse_args()
-
-
-def config_log():
-    logging.basicConfig(filename="log.txt",
-                        filemode='a',
-                        format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
-                        datefmt='%H:%M:%S',
-                        level=logging.DEBUG)
-
-
-def main():
-    config_log()
-    parser = get_arguments()
-
-    link = parser.link
-    root_folder = parser.root_folder
-    video_folder_name = parser.video_folder_name
-    video_format = parser.format
-
-    logging.info(msg=f"title: {root_folder}")
-    logging.info(msg=f"link: {link}")
-    logging.info(msg=f"video folder name: {video_folder_name}")
-    logging.info(msg=f"chosen format: {video_format}")
+def main(link: str = None, root_folder: str = None, video_folder_name: str = None, video_format: str = None):
+    logging.info(msg=f"Title: {root_folder}\n")
+    logging.info(msg=f"Link: {link}\n")
+    logging.info(msg=f"Video folder name: {video_folder_name}\n")
+    logging.info(msg=f"Chosen format: {video_format}\n")
 
     try:
-        try_download(link=link, root_videos=root_folder, video_folder_name=video_folder_name, format=video_format)
+        try_download(link=link, root_videos=root_folder, video_folder_name=video_folder_name)
     except:
-        try:
-            yt = pytube.Playlist(link)
-            my_path = os.getcwd()
-
-            # Makes the title of the playlist not to contain invalid caracters for a path
-            list_title = validate_title(yt.title)
-
-            # Get path of the folder which will contain the playlist
-            folder = os.path.abspath(os.path.join(my_path, f"{root_folder}\\{video_folder_name}"))
-            # Creates the folder if it doesn't exist
-            try:
-                os.mkdir(folder)
-            except:
-                print(f"Folder {folder} already exists so it won't be created")
-                pass
-
-            # Downloads all the videos of the playlist
-            for video in yt:
-                try_download(link=video, video_folder_name=list_title, root_videos=folder, format=video_format)
-        except Exception as e:
-            print(e.args)
-            raise e
+        # try:
+        #     yt = pytube.Playlist(link)
+        #     my_path = os.getcwd()
+        #
+        #     # Makes the title of the playlist not to contain invalid caracters for a path
+        #     list_title = validate_title(yt.title)
+        #
+        #     # Get path of the folder which will contain the playlist
+        #     folder = os.path.abspath(os.path.join(my_path, f"{root_folder}\\{video_folder_name}"))
+        #     # Creates the folder if it doesn't exist
+        #     try:
+        #         os.mkdir(folder)
+        #     except:
+        #         print(f"Folder {folder} already exists so it won't be created")
+        #         pass
+        #
+        #     # Downloads all the videos of the playlist
+        #     for video in yt:
+        #         try_download(link=video, video_folder_name=list_title, root_videos=folder, format=video_format)
+        # except Exception as e:
+        #     print(e.args)
+        #     raise e
+        print("error")
+        pass
     else:
         print("Videos downloaded")
 
 
-def try_download(link: str, video_folder_name, root_videos, format: str) -> None:
-    yt = pytube.YouTube(link)
-    # Name of the folder which will contain the video
-    video_folder = validate_title(video_folder_name)
+def set_elements(link, parser, root_folder, video_folder_name, video_format):
+    _link = link or parser.link
+    _root_folder = root_folder or parser.root_folder
+    _video_folder_name = video_folder_name or parser.video_folder_name
+    _video_format = video_format or parser.format
+    return _link, _root_folder, _video_folder_name, _video_format
 
-    # Path to the download folder
-    download_folder = os.path.join(root_videos, video_folder)
 
-    logging.info(f"Folder path: {download_folder}")
+def show_format_list(link: str):
+    if not link or not is_valid_link(link):
+        return False
 
+
+def is_valid_link(link: str):
+    pattern = "^https:\/\/[0-9A-z.]+.[0-9A-z.]+.[a-z]+$"
+    return re.match(pattern, link)
+
+
+def try_download(link: str, video_folder_name, root_videos) -> None:
+    out_path = os.path.join(root_videos, video_folder_name) + "/%(title)s.%(ext)s"
+
+    dl_opts = {
+        'outtmpl': out_path
+    }
+
+    yt = yt_dlp.YoutubeDL(dl_opts)
+
+    info_dict = yt.extract_info(url=link)
+
+    print(f"INFO DICT: {info_dict}")
+    formats_table = yt.render_formats_table(info_dict)
+    print(yt_dlp.options.get_executable_path())
+
+    # yt.download([url])
+
+    # try:
+    #     yt = YouTube(url=link.replace('"', ''))
+    #     print(yt.title)
+    #     # Name of the folder which will contain the video
+    #     video_folder = validate_title(video_folder_name)
+    #
+    #     # Path to the download folder
+    #     download_folder = os.path.join(root_videos, video_folder)
+    #
+    #     logging.info(f"Folder path: {download_folder}")
+    #
+    #     print(download_folder)
+    #     video = yt.streams
+    #     print(video)
+    #     video = video.filter(progressive=True)
+    #
+    #     print(video)
+    #     video = video.order_by("resolution")
+    #     print(video)
+    #     video = video.last()
+    #     print(video)
+    #     # video = yt.streams.get_highest_resolution()
+    #     print("A")
+    #     video.download(download_folder)
+    # except Exception as e:
+    #     print(e)
     # Gets the best resolution and downloads the video in the specified path
-    if format == "MP3":
-        download_audio(download_folder, yt)
-    elif format == "MP4":
-        download_video(download_folder, yt)
-    else:
-        raise Exception(f"Chosen format ({format}) isn't valid")
+    # if format == "MP3":
+    #     print("mp3")
+    #     audio = yt.streams.filter(only_audio=True).first()
+    #     out_file = audio.download(download_folder)
+    #     base, ext = os.path.splitext(out_file)
+    #     new_file = base + ".mp3"
+    #     os.rename(out_file, new_file)
+    #     # download_audio(download_folder, yt)
+    # elif format == "MP4":
+    #     try:
+    #         video = yt.streams.get_highest_resolution()
+    #         print("video")
+    #         video.download(download_folder)
+    #     except Exception as e:
+    #         print(e.args)
+    #         raise e
+    #     # download_video(download_folder, yt)
+    # else:
+    #     print("error format")
+    #     raise Exception(f"Chosen format ({format}) isn't valid")
 
 
 def download_video(download_folder, yt):
