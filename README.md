@@ -1,25 +1,17 @@
 # YT_Downloader
 
+**~UNDER CONSTRUCTION~** \
+*Information in this document can be incomplete or outdated*
+
 With this repo you can download a YouTube video or playlist
 
 ## Set up
 
-First you need to get the source code, you can download it directly from GitHub or using ```git clone``` in the command line.
-
-Once you have the code downloaded you have to move to the folder where are the python scripts ```...\YT_Downloader\src\downloader_for_yt\``` and
-install the requirements.
-```
-pip install -r requirements.txt
-```
+Download the latest release
 
 ## Launching it
 
-After installing the requirements you only have to run the "ui.py" script.
-
-```
-python ui.py
-```
-
+Open the file ```main.exe```
 
 ## How to use
 

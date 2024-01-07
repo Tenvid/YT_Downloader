@@ -1,16 +1,26 @@
 import argparse
 import logging
 import os
+
 import PySimpleGUI as sg
 import yt_dlp
 
 from downloader_for_yt.model import list_manager
-
 from downloader_for_yt.model.VideoFormat import VideoFormat
-from downloader_for_yt.view.rows import header_row, folder_row, list_headers_row, format_lists_row, input_row, \
-    submit_row
-from downloader_for_yt.view.widgets import show_format_list_checkbox, INITIAL_FOLDER, lbVideoFormat, lbAudioFormat, \
-    itURL
+from downloader_for_yt.view.rows import (
+    folder_row,
+    format_lists_row,
+    header_row,
+    input_row,
+    list_headers_row,
+    submit_row,
+)
+from downloader_for_yt.view.widgets import (
+    INITIAL_FOLDER,
+    itURL,
+    lbAudioFormat,
+    lbVideoFormat,
+)
 from downloader_for_yt.view.widgets_keys import WidgetKeys
 
 
@@ -69,13 +79,10 @@ def download_video_audio(video_code: str, audio_code: str):
 
     yt.download(itURL.get())
 
-    pass
-
 
 def process_event(event: str):
     """
     When an event is received, executes an action depending on it
-    :param yt: Video downloader instance
     :param event: Event key
     """
     if not event:
@@ -94,13 +101,19 @@ def process_event(event: str):
 
     elif event == WidgetKeys.load_video.value:
         try:
-            with yt_dlp.YoutubeDL() as yt:
-                video_info = yt.extract_info(itURL.get(), download=False)
-
+            video_info = _get_video_info()
             processed_formats_list = get_processed_formats_list(video_info)
             list_manager.fill_lists(processed_formats_list)
-        except yt_dlp.utils.DownloadError as e:
+
+        except yt_dlp.utils.DownloadError:
             popup_invalid_url_error(itURL.get())
+
+
+def _get_video_info():
+    with yt_dlp.YoutubeDL() as yt:
+        video_info = yt.extract_info(itURL.get(), download=False)
+    return video_info
+
 
 def get_processed_formats_list(video_info):
     """

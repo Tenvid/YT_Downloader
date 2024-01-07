@@ -1,5 +1,9 @@
 from downloader_for_yt.model.VideoFormat import VideoFormat
-from downloader_for_yt.view.widgets import lbVideoFormat, lbAudioFormat, lbMixedFormat
+from downloader_for_yt.view.widgets import (
+    lbAudioFormat,
+    lbMixedFormat,
+    lbVideoFormat,
+)
 
 
 def _fill_video_list(format_list: list[VideoFormat]):

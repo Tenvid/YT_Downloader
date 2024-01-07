@@ -15,3 +15,14 @@ yt-dlp = "^2023.9.24"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+
+[tool.ruff]
+line-length=79
+
+[tool.ruff.lint]
+extend-select = [
+    "F",    # pyflakes
+    "UP",   # pyupgrade
+    "I",    # isort
+]

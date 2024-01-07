@@ -1,4 +1,5 @@
 import PySimpleGUI as sg
+
 import downloader_for_yt.view.widgets as widgets
 
 header_row = [sg.Text(text=widgets.HEADER_MESSAGE, background_color=widgets.BACKGROUND_COLOR, key="header"),

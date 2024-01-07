@@ -1,6 +1,7 @@
 from enum import Enum
 
 import PySimpleGUI as sg
+
 from .widgets_keys import WidgetKeys
 
 BACKGROUND_COLOR = "#44aaca"
