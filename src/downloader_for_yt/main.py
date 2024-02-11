@@ -4,18 +4,16 @@ import logging
 import os
 import PySimpleGUI as sg
 import yt_dlp
-
-from downloader_for_yt.model import list_manager
-
-from downloader_for_yt.model.VideoFormat import VideoFormat
-from downloader_for_yt.view.rows import header_row, folder_row, list_headers_row, format_lists_row, input_row, \
-    submit_row
-from downloader_for_yt.view.widgets import INITIAL_FOLDER, lbVideoFormat, lbAudioFormat, itURL
 from downloader_for_yt.view.widgets_keys import WidgetKeys
+from downloader_for_yt.view.widgets import INITIAL_FOLDER, lbVideoFormat, lbAudioFormat, itURL
+from downloader_for_yt.model import list_manager
+from downloader_for_yt.model.VideoFormat import VideoFormat
+from downloader_for_yt.view.rows import header_row, folder_row, list_headers_row, \
+    format_lists_row, input_row, submit_row
 
 
 def get_arguments():
-    """Reads arguments from console.
+    """Read arguments from console.
 
     Returns: args (Namespace): Arguments given from command line
     """
@@ -60,13 +58,16 @@ def popup_invalid_url_error(url) -> bool:
     :return: If there is an error
     """
     if url == '':
-        sg.popup_error("You have to enter a valid URL", title="Invalid URL", background_color="#8e2536",
-                       button_color="#111133", auto_close=False)
+        sg.popup_error("You have to enter a valid URL", title="Invalid URL",
+                       background_color="#8e2536", button_color="#111133", auto_close=False)
         return True
     return False
 
 
 def download_video_audio(video_code: str, audio_code: str):
+    """Download a video with the code of video and audio quality provided.
+    :param video_code: Code of the video.
+    :param audio_code: Code of the video"""
     dl_options = {
         'outtmpl': './videos/%(uploader)s/%(title)s.%(ext)s',
         'format': f'{video_code}+{audio_code}',
@@ -78,10 +79,10 @@ def download_video_audio(video_code: str, audio_code: str):
 
 
 def process_event(event: str):
-    """
-    When an event is received, executes an action depending on it
-    :param yt: Video downloader instance
-    :param event: Event key
+    """When an event is received, executes an action depending on it
+
+    Args:
+        event (str): Event key
     """
     if not event:
         return
@@ -109,10 +110,13 @@ def process_event(event: str):
 
 
 def get_processed_formats_list(video_info):
-    """
-    By passing a dict with the info of a video, returns a list of :class:`VideoFormat`
-    :param video_info: Dict which contains info about a video
-    :return: list of available :class:`VideoFormat`
+    """Get the list of all available formats for downloading
+
+    Args:
+        video_info (dict): Info of the video
+
+    Returns:
+        []: List with all formats
     """
     extracted_video_formats = video_info["formats"]
     processed_formats_list = _get_format_list(extracted_video_formats)
