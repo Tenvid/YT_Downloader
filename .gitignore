@@ -191,3 +191,4 @@ videos/
 build/
 dist/
 *.spec
+.vscode
