@@ -1,3 +1,4 @@
+"""Main module of application"""
 import argparse
 import logging
 import os
@@ -9,25 +10,30 @@ from downloader_for_yt.model import list_manager
 from downloader_for_yt.model.VideoFormat import VideoFormat
 from downloader_for_yt.view.rows import header_row, folder_row, list_headers_row, format_lists_row, input_row, \
     submit_row
-from downloader_for_yt.view.widgets import show_format_list_checkbox, INITIAL_FOLDER, lbVideoFormat, lbAudioFormat, \
-    itURL
+from downloader_for_yt.view.widgets import INITIAL_FOLDER, lbVideoFormat, lbAudioFormat, itURL
 from downloader_for_yt.view.widgets_keys import WidgetKeys
 
 
 def get_arguments():
+    """Reads arguments from console.
+
+    Returns: args (Namespace): Arguments given from command line
+    """
     args = argparse.ArgumentParser(
         prog="Universal Downloader",
         description="This app downloads web videos",
     )
 
     args.add_argument('link', type=str)
-    args.add_argument('root_folder', type=str, default="C:/Users/Usuario/Desktop")
+    args.add_argument('root_folder', type=str,
+                      default="C:/Users/Usuario/Desktop")
     args.add_argument('video_folder_name', type=str)
     args.add_argument('format', type=str, choices=["MP3", "MP4"])
     return args.parse_args()
 
 
 def config_log():
+    """Configure logging"""
     logging.basicConfig(filename="log.txt",
                         filemode='a',
                         format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
@@ -36,6 +42,7 @@ def config_log():
 
 
 def generate_layout():
+    """Set layout"""
     return [
         header_row,
         folder_row,
@@ -69,8 +76,6 @@ def download_video_audio(video_code: str, audio_code: str):
 
     yt.download(itURL.get())
 
-    pass
-
 
 def process_event(event: str):
     """
@@ -99,8 +104,9 @@ def process_event(event: str):
 
             processed_formats_list = get_processed_formats_list(video_info)
             list_manager.fill_lists(processed_formats_list)
-        except yt_dlp.utils.DownloadError as e:
+        except yt_dlp.utils.DownloadError:
             popup_invalid_url_error(itURL.get())
+
 
 def get_processed_formats_list(video_info):
     """
@@ -133,6 +139,7 @@ def _get_format_list(extracted_formats: dict):
 
 
 def validate_values(dict_values) -> bool:
+    """Check if a folder has been selected and if the name has been chosen"""
     if popup_invalid_url_error(dict_values['url']):
         return False
 
@@ -154,7 +161,7 @@ def render_window(window):
     """
 
     while True:
-        event, values = window.read()
+        event, _ = window.read()
 
         if event == sg.WIN_CLOSED:
             window.close()
