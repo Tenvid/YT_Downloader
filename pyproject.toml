@@ -8,9 +8,12 @@ packages = [{include = "downloader_for_yt", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-pysimplegui = "^4.60.5"
-yt-dlp = "^2023.9.24"
+yt-dlp = "2024.5.27"
+cmd2 = "2.4.3"
 
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.4.8"
 
 [build-system]
 requires = ["poetry-core"]
