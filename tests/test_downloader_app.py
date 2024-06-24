@@ -1,4 +1,3 @@
-import cmd2
 import cmd2_ext_test
 import pytest
 from downloader_for_yt.__main__ import DownloaderApp
