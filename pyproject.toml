@@ -10,10 +10,13 @@ packages = [{include = "downloader_for_yt", from = "src"}]
 python = "^3.11"
 yt-dlp = "2024.5.27"
 cmd2 = "2.4.3"
+cmd2-ext-test = "2.0.0"
 
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.4.8"
+pytest = "8.2.2"
+ipython = "^8.25.0"
 
 [build-system]
 requires = ["poetry-core"]
