@@ -12,6 +12,23 @@ BASE_PATH = Path.cwd() / "videos"
 class DownloaderApp(cmd2.Cmd):
     """CMD2 application for the video downloading"""
 
+    def __init__(self):
+        super().__init__()
+        del cmd2.Cmd.do_alias
+        del cmd2.Cmd.do_edit
+        del cmd2.Cmd.do_ipy
+        del cmd2.Cmd.do_macro
+        del cmd2.Cmd.do_py
+        del cmd2.Cmd.do_run_pyscript
+        del cmd2.Cmd.do_run_script
+        del cmd2.Cmd.do_set
+        del cmd2.Cmd.do_shell
+        del cmd2.Cmd.do_shortcuts
+
+    def preloop(self):
+        self.poutput("Welcome to the YT Video Downloader. Here you have a list with the available commands")
+        self.do_help("-v")
+
     def validate_url(self, url: str) -> bool:
         """Check if the url is valid.
 
