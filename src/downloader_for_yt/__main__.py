@@ -26,7 +26,9 @@ class DownloaderApp(cmd2.Cmd):
         del cmd2.Cmd.do_shortcuts
 
     def preloop(self):
-        self.poutput("Welcome to the YT Video Downloader. Here you have a list with the available commands")
+        self.poutput(
+            "Welcome to the YT Video Downloader. Here you have a list with the available commands"
+        )
         self.do_help("-v")
 
     def validate_url(self, url: str) -> bool:
@@ -94,7 +96,13 @@ class DownloaderApp(cmd2.Cmd):
         "-f",
         "--format",
         type=str,
-        help="Format for the download. It should be like <video-format-code>+<audio-format-code>.",
+        help="""Format for the download.
+
+                If you want video and audio, it must be <video>+<audio>
+                If you only want video or audio, you should only pass its code
+
+                To see the available formats `list_all_formats`
+        """,
     )
 
     @cmd2.with_argparser(download_parser_with_format)
