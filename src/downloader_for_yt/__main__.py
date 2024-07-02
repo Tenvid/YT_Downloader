@@ -95,7 +95,7 @@ class DownloaderApp(cmd2.Cmd):
 
     download_parser_with_format = cmd2.Cmd2ArgumentParser()
     download_parser_with_format.add_argument(
-        "url", type=str, help="Url which will be downloaded.", required=True
+        "url", type=str, help="Url which will be downloaded."
     )
     download_parser_with_format.add_argument(
         "-p",
