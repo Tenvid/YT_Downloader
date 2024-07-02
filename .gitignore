@@ -192,3 +192,6 @@ build/
 dist/
 *.spec
 .vscode
+
+#.exe build output folder
+output/
