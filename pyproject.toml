@@ -11,7 +11,7 @@ python = "^3.11, <3.13"
 yt-dlp = "2024.5.27"
 cmd2 = "2.4.3"
 cmd2-ext-test = "2.0.0"
-python-ffmpeg = "2.0.12"
+ffmpeg-python = "^0.2.0"
 
 
 [tool.poetry.group.dev.dependencies]
