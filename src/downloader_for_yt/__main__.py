@@ -1,12 +1,11 @@
-import re
 import sys
 from argparse import Namespace
-from pathlib import Path, WindowsPath
+from pathlib import Path
 from typing import Dict
 
 import cmd2
+import ffmpeg
 import yt_dlp
-from ffmpeg import FFmpeg
 from yt_dlp.utils import DownloadError
 
 BASE_PATH = Path.cwd() / "videos"
@@ -34,18 +33,6 @@ class DownloaderApp(cmd2.Cmd):
         )
         self.do_help("-v")
 
-    def validate_url(self, url: str) -> bool:
-        """Check if the url is valid.
-
-        Args:
-            url (str): Url to be checked
-
-        Returns:
-            bool: If url is valid
-        """
-
-        return re.match("(https:\/\/youtu\.be\/)([a-zA-Z0-9?=\-_]*)", url)
-
     def do_list_all_formats(self, line: Namespace):
         """Shows all the available formats for the given url.
 
@@ -58,7 +45,7 @@ class DownloaderApp(cmd2.Cmd):
             yt.download(str(line))
         except DownloadError:
             self.perror(
-                "There was an error downloading data. Please check your internet connection."
+                "There was an error downloading data. Please check your internet connection and make sure url is correct."
             )
 
     download_parser = cmd2.Cmd2ArgumentParser()
@@ -80,9 +67,6 @@ class DownloaderApp(cmd2.Cmd):
             line (Namespace): Line arguments
         """
 
-        # if not self.validate_url(line.url):
-        #     return
-
         path = line.path if line.path else str(BASE_PATH)
 
         yt = yt_dlp.YoutubeDL({"paths": {"home": path}})
@@ -90,7 +74,7 @@ class DownloaderApp(cmd2.Cmd):
             yt.download(str(line.url))
         except DownloadError:
             self.perror(
-                "There was an error downloading the file. Please check your internet connection."
+                "There was an error downloading the file. Please check your internet connection and make sure url is correct."
             )
 
     download_parser_with_format = cmd2.Cmd2ArgumentParser()
@@ -126,7 +110,7 @@ class DownloaderApp(cmd2.Cmd):
 
         if not line.video_codec and not line.audio_codec:
             self.perror(
-                "You have to enter a video or audio format to download"
+                "You have to enter a video or audio format to download. Use list_formats to know them."
             )
             return
 
@@ -143,7 +127,7 @@ class DownloaderApp(cmd2.Cmd):
             yt.download(str(line.url))
         except DownloadError:
             self.perror(
-                "There was an error downloading file. Please check your internet connection."
+                "There was an error downloading file. Please check your internet connection and make sure url is correct."
             )
 
     def _get_specified_format_by_id(
@@ -152,6 +136,7 @@ class DownloaderApp(cmd2.Cmd):
         for form in info_dict["formats"]:
             if form["format_id"] == str(format_id):
                 return form
+        return None
 
     video_reformatter_parser = cmd2.Cmd2ArgumentParser()
     video_reformatter_parser.add_argument(
@@ -161,7 +146,6 @@ class DownloaderApp(cmd2.Cmd):
         type=Path,
         required=True,
     )
-
     video_reformatter_parser.add_argument(
         "-e",
         "--extension",
@@ -184,27 +168,15 @@ class DownloaderApp(cmd2.Cmd):
             line (Namespace): _description_
         """
 
-        input_video = line.input
+        input_video = Path(line.input)
+        output_path = Path(line.output) if line.output else BASE_PATH
+        video_title = str(line.input).replace("\\", "/").split("/")[-1]
 
-        output_path = line.output if line.output else BASE_PATH
-
-        if isinstance(input_video, WindowsPath):
-            video_title = str(line.input).split("\\")[-1]
-        else:
-            video_title = str(line.input).split("/")[-1]
-
-        ffmpeg = (
-            FFmpeg()
-            .option("y")
-            .input(input_video)
-            .output(
-                output_path / f'"{video_title}".{line.extension}',
-                preset="veryslow",
-                crf=24,
-            )
+        (
+            ffmpeg.input(Path(input_video))
+            .output(str(output_path / video_title) + "." + line.extension)
+            .run()
         )
-
-        ffmpeg.execute()
 
 
 if __name__ == "__main__":
