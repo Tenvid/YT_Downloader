@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "downloader-for-yt"
-version = "0.1.0"
+version = "1.0.0"
 description = ""
 authors = ["David <89795659+Tenvid@users.noreply.github.com>"]
 readme = "README.md"
