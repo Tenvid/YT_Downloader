@@ -25,6 +25,7 @@ class DownloaderApp(cmd2.Cmd):
         del cmd2.Cmd.do_run_script
         del cmd2.Cmd.do_shell
         del cmd2.Cmd.do_shortcuts
+        del cmd2.Cmd.do_set
         self.do_exit = self.do_quit
 
     def preloop(self):
