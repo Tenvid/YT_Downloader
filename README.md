@@ -1,23 +1,31 @@
-# YT_Downloader
+# YT_Downloader 1.0.0
 
-**~UNDER CONSTRUCTION~** \
-*Information in this document can be incomplete or outdated*
+YT_Downloader is a project based in [yt-dlp](https://github.com/yt-dlp/yt-dlp).
 
-With this repo you can download a YouTube video or playlist
+With this repo you can download a YouTube video using diferent functions.
 
 ## Set up
 
-Download the latest release
+You will need Python 3.11
 
-## Launching it
+### For users
 
-Open the file ```main.exe```
+Download latest release and run one of .exe files
 
-## How to use
+> NOTE: For the moment only the console version is available, a UI version will be available in the future
 
-Once the program is open you will see a little window with some buttons and text fields.
+### For developers
 
-- The first button opens a folder browser where you will select which folder will contain the video (by default: C:/Users/Usuario/Desktop)
-- The first text field is the name that you will give to the folder of the video (by default: DefaultName)
-- The second field is where you have to place the url from YT (if it is empty, an error pop up will appear)
-- The last button launches the "downloader.py" and downloads the video or playlist wherever you have chosen before
+Download source code from latest release in the repository and download dependencies.
+
+You can get dependencies by installing requirements.txt
+
+```bash
+pip install -r requirements.txt
+```
+
+or you can use poetry
+
+```bash
+poetry install
+```
